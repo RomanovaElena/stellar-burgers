@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { getIngredients } from '../../services/slices/burger-ingredients-slice';
 
 export const IngredientDetails: FC = () => {
-  /** TODO: взять переменную из стора */
   const { id } = useParams();
   const ingredientData = useSelector(getIngredients).find(
     (ingredient) => ingredient._id === id

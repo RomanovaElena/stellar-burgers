@@ -34,7 +34,6 @@ const App = () => {
       .finally(() => {
         dispatch(checkUserAuth());
       });
-    // dispatch(checkUserAuth());
   }, [dispatch]);
 
   return (

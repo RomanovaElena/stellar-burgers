@@ -1,7 +1,6 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
-import { useNavigate } from 'react-router-dom';
 import {
   getError,
   getUser,
@@ -9,12 +8,6 @@ import {
 } from '../../services/slices/users-slice';
 
 export const Profile: FC = () => {
-  // const error = useSelector(getError);
-  /** TODO: взять переменную из стора */
-  // const user = {
-  //   name: '',
-  //   email: ''
-  // };
   const user = useSelector(getUser);
   const dispatch = useDispatch();
 
@@ -67,6 +60,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
-  // return null;
 };

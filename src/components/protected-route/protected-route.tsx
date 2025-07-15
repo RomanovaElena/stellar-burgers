@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import {
   getAuthCheckedStatus,
-  getLoadingStatus,
   getUser
 } from '../../services/slices/users-slice';
-import { useDispatch, useSelector } from '../../services/store';
+import { useSelector } from '../../services/store';
 import { Navigate, useLocation } from 'react-router-dom';
 import { Preloader } from '@ui';
 
@@ -21,7 +20,6 @@ export const ProtectedRoute: FC<TProtectedRouteProps> = ({
   const user = useSelector(getUser);
   const location = useLocation();
 
-  // if (!isAuthChecked && isLoading) {
   if (!isAuthChecked) {
     return <Preloader />;
   }

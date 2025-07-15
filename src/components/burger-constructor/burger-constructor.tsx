@@ -13,7 +13,6 @@ import { createOrder } from '../../services/slices/orders-slice';
 import { resetConstructor } from '../../services/slices/burger-constructor-slice';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useSelector((state) => state.burgerConstructorSlice);
   const orderRequest = useSelector(getLoadingStatus);
   const orderModalData = useSelector(getOrderModalData);
@@ -41,7 +40,6 @@ export const BurgerConstructor: FC = () => {
     dispatch(resetConstructor());
     navigate('/', { replace: true });
     dispatch(resetOrderData());
-    // navigate('/');
   };
 
   const price = useMemo(
@@ -53,8 +51,6 @@ export const BurgerConstructor: FC = () => {
       ),
     [constructorItems]
   );
-
-  // return null;
 
   return (
     <BurgerConstructorUI
