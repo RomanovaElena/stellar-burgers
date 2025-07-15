@@ -8,14 +8,14 @@ import { getOrderByNumberApi, getOrdersApi, orderBurgerApi } from '@api';
 
 export interface TOrderState {
   orderModalData: TOrder | null;
-  ordersData: TOrder[];
+  // ordersData: TOrder[];
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: TOrderState = {
   orderModalData: null,
-  ordersData: [],
+  // ordersData: [],
   isLoading: false,
   error: null
 };
@@ -25,10 +25,10 @@ export const createOrder = createAsyncThunk(
   async (data: string[]) => orderBurgerApi(data)
 );
 
-export const getOrderById = createAsyncThunk(
-  'orders/getById',
-  async (number: number) => getOrderByNumberApi(number)
-);
+// export const getOrderById = createAsyncThunk(
+//   'orders/getById',
+//   async (number: number) => getOrderByNumberApi(number)
+// );
 
 const slice = createSlice({
   name: 'ordersSlice',
@@ -49,18 +49,18 @@ const slice = createSlice({
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.isLoading = false;
-      })
-      .addCase(getOrderById.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getOrderById.fulfilled, (state, action) => {
-        state.orderModalData = action.payload.orders[0];
-        state.isLoading = false;
-      })
-      .addCase(getOrderById.rejected, (state, action) => {
-        state.error = action.error.message!;
-        state.isLoading = false;
       });
+    // .addCase(getOrderById.pending, (state) => {
+    //   state.isLoading = true;
+    // })
+    // .addCase(getOrderById.fulfilled, (state, action) => {
+    //   state.orderModalData = action.payload.orders[0];
+    //   state.isLoading = false;
+    // })
+    // .addCase(getOrderById.rejected, (state, action) => {
+    //   state.error = action.error.message!;
+    //   state.isLoading = false;
+    // });
   },
   selectors: {
     getOrderModalData: (state) => state.orderModalData,

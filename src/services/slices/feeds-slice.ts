@@ -1,9 +1,10 @@
-import { getFeedsApi, getOrdersApi } from '@api';
+import { getFeedsApi, getOrderByNumberApi, getOrdersApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TOrdersData } from '@utils-types';
+import { TOrder, TOrdersData } from '@utils-types';
 
 type TFeedsState = {
   ordersData: TOrdersData;
+  order: TOrder | null;
   isLoading: boolean;
   error: string | null;
 };
@@ -14,6 +15,7 @@ export const initialState: TFeedsState = {
     total: 0,
     totalToday: 0
   },
+  order: null,
   isLoading: false,
   error: null
 };
@@ -21,6 +23,11 @@ export const initialState: TFeedsState = {
 export const getFeeds = createAsyncThunk<TOrdersData>(
   'feeds/getFeeds',
   async () => getFeedsApi()
+);
+
+export const getFeedById = createAsyncThunk(
+  'feeds/getById',
+  async (number: number) => getOrderByNumberApi(number)
 );
 
 const slice = createSlice({
@@ -41,17 +48,36 @@ const slice = createSlice({
       .addCase(getFeeds.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message!;
+      })
+      .addCase(getFeedById.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getFeedById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.order = action.payload.orders[0];
+      })
+      .addCase(getFeedById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message!;
       });
   },
   selectors: {
     getOrdersData: (state) => state.ordersData.orders,
+    getFeedData: (state) => state.order,
     getLoadingStatus: (state) => state.isLoading,
     getTotal: (state) => state.ordersData.total,
     getTotalToday: (state) => state.ordersData.totalToday
   }
 });
 
-export const { getOrdersData, getLoadingStatus, getTotal, getTotalToday } =
-  slice.selectors;
+export const {
+  getOrdersData,
+  getFeedData,
+  getLoadingStatus,
+  getTotal,
+  getTotalToday
+} = slice.selectors;
 
 export default slice.reducer;
