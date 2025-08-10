@@ -8,7 +8,7 @@ export interface TOrderState {
   error: string | null;
 }
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   orderModalData: null,
   isLoading: false,
   error: null
@@ -38,6 +38,7 @@ const slice = createSlice({
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.error.message!;
       });
   },
   selectors: {

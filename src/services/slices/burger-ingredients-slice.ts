@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 
-type TIngredientsState = {
+export type TIngredientsState = {
   ingredients: TIngredient[];
   isLoading: boolean;
   error: string | null;
