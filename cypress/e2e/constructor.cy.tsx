@@ -37,6 +37,10 @@ describe('интеграционные тесты для страницы кон
         cy.get('[data-cy="bun"]').first().click();
         cy.reload(true);
         cy.get('#modals').children().should('have.length', 2);
+        // проверка отображения в модальном окне данных ингредиента, по которому произошел клик
+        cy.get('#modals > div:first-child')
+          .get('div:first-child > h3')
+          .contains('Краторная булка N-200i');
       });
     });
 
